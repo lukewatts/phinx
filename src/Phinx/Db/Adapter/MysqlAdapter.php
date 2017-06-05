@@ -205,7 +205,7 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
         // This method is based on the MySQL docs here: http://dev.mysql.com/doc/refman/5.1/en/create-index.html
         $defaultOptions = array(
             'engine' => 'InnoDB',
-            'collation' => 'utf8_general_ci'
+            'collation' => 'utf8_unicode_ci'
         );
         $options = array_merge($defaultOptions, $table->getOptions());
 
@@ -215,7 +215,8 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
             $column = new Column();
             $column->setName('id')
                    ->setType('integer')
-                   ->setIdentity(true);
+                   ->setIdentity(true)
+                   ->setSigned(false);
 
             array_unshift($columns, $column);
             $options['primary_key'] = 'id';
@@ -225,7 +226,8 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
             $column = new Column();
             $column->setName($options['id'])
                    ->setType('integer')
-                   ->setIdentity(true);
+                   ->setIdentity(true)
+                   ->setSigned(false);
 
             array_unshift($columns, $column);
             $options['primary_key'] = $options['id'];
